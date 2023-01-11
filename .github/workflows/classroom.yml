@@ -31,6 +31,7 @@ jobs:
         with:
           context: .
           push: true
+          tags: lab4
 
       - name: Run API Tests
         uses: matt-ball/newman-action@master
