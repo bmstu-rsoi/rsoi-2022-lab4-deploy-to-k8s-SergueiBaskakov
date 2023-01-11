@@ -15,6 +15,6 @@ spec:
     spec:
       containers:
         - name: back-end2
-          image: sergueidb/rsoi-lab4:master # sergueidb/lab4-2:master # public.ecr.aws/nginx/nginx:1.21 #
+          image: sergueidb/lab4-3:master # sergueidb/rsoi-lab4:master #  public.ecr.aws/nginx/nginx:1.21 #
           ports:
             - containerPort: 8080
