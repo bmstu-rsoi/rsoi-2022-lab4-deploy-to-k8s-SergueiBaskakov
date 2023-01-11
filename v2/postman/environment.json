@@ -4,7 +4,7 @@
 	"values": [
 		{
 			"key": "baseUrl",
-			"value": "",
+			"value": "http://k8s-default-ingressl-9814e89188-1928607621.us-west-2.elb.amazonaws.com",
 			"enabled": true
 		}
 	],
