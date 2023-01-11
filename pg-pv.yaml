@@ -1,15 +1,13 @@
-kind: PersistentVolume
 apiVersion: v1
+kind: PersistentVolume
 metadata:
-  name: pg-pv-volume
-  labels:
-    type: local
-    app: postgres
+ name: "pg-pv-volume"
 spec:
-  storageClassName: manual
-  capacity:
-    storage: 5Gi
-  accessModes:
-  - ReadWriteMany
-  hostPath:
-    path: "/home/data/"
+ capacity:
+   storage: 3Gi
+ accessModes:
+   - ReadWriteMany
+ persistentVolumeReclaimPolicy: Recycle
+ awsElasticBlockStore:
+   volumeID: vol-0a310d2dd7a7ed6b4
+   fsType: ext4

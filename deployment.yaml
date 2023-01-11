@@ -14,7 +14,22 @@ spec:
         app: web
     spec:
       containers:
-        - name: back-end2
-          image: sergueidb/lab4-3:master # sergueidb/rsoi-lab4:master #  public.ecr.aws/nginx/nginx:1.21 #
-          ports:
-            - containerPort: 8080
+      - name: postgres
+        image: postgres:10.4
+        imagePullPolicy: "IfNotPresent"
+        ports:
+          - containerPort: 5432
+        envFrom:
+          - configMapRef:
+              name: pg-config
+        volumeMounts:
+          - mountPath: /var/lib/postgresql/data
+            name: postgredb
+      - name: back-end2
+        image: sergueidb/lab4-2:master # sergueidb/rsoi-lab4:master #  public.ecr.aws/nginx/nginx:1.21 #
+        ports:
+          - containerPort: 8080
+      volumes:
+        - name: postgredb
+          persistentVolumeClaim:
+            claimName: pg-claim
