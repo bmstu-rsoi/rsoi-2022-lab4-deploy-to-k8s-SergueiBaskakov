@@ -32,7 +32,6 @@ app.get('/', (req, res) => {
 });
 
 app.get('/check8070', (req, res) => {
-  res.send('Gateway Service');
   res.setHeader('Content-Type', 'application/json')
   axios.get(`http://${HOST}:8070/`, {})
   .then((response) => {
