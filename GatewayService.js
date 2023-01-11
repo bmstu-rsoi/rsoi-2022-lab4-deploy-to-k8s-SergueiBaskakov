@@ -9,15 +9,54 @@ const HOST = '0.0.0.0';
 // App
 const app = express();
 
-const client = new Client({
-  user: 'program',
-  host: 'postgres',
-  database: 'reservations',
-  password: 'test',
+var client = new Client({
+  user: 'postgres',//'program',
+  host: '127.0.0.1',//'postgres',
+  //database: 'reservations',
+  password: 'postgres',//'test',
   port: 5432,
 });
 
 client.connect();
+
+function renewClient() {
+  client = new Client({
+    user: 'postgres',//'program',
+    host: '127.0.0.1',//'postgres',
+    //database: 'reservations',
+    password: 'postgres',//'test',
+    port: 5432,
+  });
+  client.connect();
+}
+
+init()
+
+function init() {
+  renewClient()
+  let querySQL = `
+  CREATE ROLE program WITH PASSWORD 'test';
+ALTER ROLE program WITH LOGIN;
+
+CREATE DATABASE payments;
+GRANT ALL PRIVILEGES ON DATABASE payments TO program;
+
+CREATE DATABASE reservations;
+GRANT ALL PRIVILEGES ON DATABASE reservations TO program;
+
+CREATE DATABASE loyalties;
+GRANT ALL PRIVILEGES ON DATABASE loyalties TO program;
+`
+
+  client.query(querySQL, (err, result)=>{
+    if(!err){
+      console.log(result)
+    }
+    else {
+      console.log(err.message)
+    }
+  })
+}
 
 app.use(express.json());
 
