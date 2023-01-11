@@ -31,6 +31,22 @@ app.get('/', (req, res) => {
   res.send('Gateway Service');
 });
 
+app.get('/check8070', (req, res) => {
+  res.send('Gateway Service');
+  res.setHeader('Content-Type', 'application/json')
+  axios.get(`http://${HOST}:8070/`, {})
+  .then((response) => {
+    // handle success
+    res.statusCode = response.status
+    response.status == 200 ? res.send(response.data) : res.end();
+  })
+  .catch((error) => {
+    // handle error
+    res.statusCode = 400
+    res.end(JSON.stringify({ message: error.message}));
+  })
+});
+
 app.get('/manage/health', (req, res) => {
   res.statusCode = 200
   res.send(JSON.stringify());

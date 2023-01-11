@@ -1,0 +1,37 @@
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+metadata:
+  name: lab4-V2
+  region: us-west-2
+
+vpc:
+  id: vpc-0fc2ce68677051d79
+  cidr: "192.168.0.0/16"
+  subnets:
+    public:
+      ap-southeast-1a:
+        id: subnet-08afa72819d419a83
+      ap-southeast-1b:
+        id: subnet-0c26f1ea18daf5fff
+    private:
+      ap-southeast-1a:
+        id: subnet-031d7309c765bbb22
+      ap-southeast-1b:
+        id: subnet-060214ca07cf9e269
+
+managedNodeGroups:
+  - name: managed-ng-1
+    minSize: 1
+    maxSize: 3
+    desiredCapacity: 2
+    volumeSize: 5
+    instanceType: t2.small
+    iam:
+      withAddonPolicies:
+        externalDNS: true
+        certManager: true
+  - name: managed-ng-2
+    privateNetworking: true
+    instanceType: t2.small
+    minSize: 1
+    maxSize: 1
