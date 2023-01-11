@@ -7,7 +7,7 @@ const HOST = '0.0.0.0';
 // App
 const app = express();
 
-const client = new Client({
+var client = new Client({
   user: 'program',
   host: 'postgres',
   database: 'loyalties',
@@ -16,6 +16,17 @@ const client = new Client({
 });
 
 client.connect();
+
+function renewClient() {
+  client = new Client({
+    user: 'program',
+    host: 'postgres',
+    database: 'loyalties',
+    password: 'test',
+    port: 5432,
+  });
+  client.connect();
+}
 
 app.use(express.json());
 
@@ -37,6 +48,7 @@ app.get('/manage/health', (req, res) => {
 });
 
 app.get('/api/v1/loyalty', (req, res) => {
+  renewClient()
   let querySQL = `
   SELECT reservation_count as "reservationCount",
         status,
@@ -64,6 +76,7 @@ app.get('/api/v1/loyalty', (req, res) => {
 });
 
 app.post('/api/v1/loyalty', (req, res) => {
+  renewClient()
   let querySQL = `
   UPDATE loyalty SET reservation_count = reservation_count + 1 WHERE username = $1
 `
@@ -88,6 +101,7 @@ app.post('/api/v1/loyalty', (req, res) => {
 });
 
 function init() {
+  renewClient()
   let querySQL = `
   CREATE TABLE IF NOT EXISTS loyalty
 (

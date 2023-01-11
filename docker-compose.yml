@@ -8,6 +8,13 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: "postgres"
       POSTGRES_DB: postgres
+      PGUSER: "postgres"
+
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
     volumes:
       - db-data:/var/lib/postgresql/data
       - ./postgres/:/docker-entrypoint-initdb.d/
@@ -41,7 +48,8 @@ services:
     restart: on-failure
     build: .
     depends_on:
-        - postgres
+      postgres:
+        condition: service_healthy
     environment:
         DATABASE_URL: postgres://program:test@localhost:5432/reservations
         NODE_ENV: development
@@ -56,7 +64,8 @@ services:
     restart: on-failure
     build: .
     depends_on:
-        - postgres
+      postgres:
+        condition: service_healthy
     environment:
         DATABASE_URL: postgres://program:test@localhost:5432/payments
         NODE_ENV: development
@@ -71,7 +80,8 @@ services:
     restart: on-failure
     build: .
     depends_on:
-        - postgres
+      postgres:
+        condition: service_healthy
     environment:
         DATABASE_URL: postgres://program:test@localhost:5432/reservations
         NODE_ENV: development
