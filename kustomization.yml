@@ -1,0 +1,13 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: KustomizationsecretGenerator: 
+  - name: postgres-pwd
+    literals:
+      - mypwd=postgres
+      - pgadmin-pass=postgres
+resources:
+    - my-efs-provisioner.yml
+    - my-rbac.yml
+    - my-storage.yml
+    - deploy-postgres.yml
+    - deploy-pgadmin.yml
+    - pg-admin-deployment.yaml

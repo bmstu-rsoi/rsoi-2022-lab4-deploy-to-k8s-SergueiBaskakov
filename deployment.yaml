@@ -26,9 +26,24 @@ spec:
           - mountPath: /var/lib/postgresql/data
             name: postgredb
       - name: back-end2
-        image: sergueidb/lab4-2:master # sergueidb/rsoi-lab4:master #  public.ecr.aws/nginx/nginx:1.21 #
+        image: sergueidb/lab4-3:master # sergueidb/rsoi-lab4:master #  public.ecr.aws/nginx/nginx:1.21 #
         ports:
           - containerPort: 8080
+      - name: pgadmin
+        image: dpage/pgadmin4:master
+        env:
+        - name: PGADMIN_DEFAULT_EMAIL
+          value: "admin"
+        - name: PGADMIN_PORT
+          value: "80"
+        - name: PGADMIN_DEFAULT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: postgres-pwd
+              key: pgadmin-pass
+        ports:
+        - containerPort: 80
+          name: pgadminport
       volumes:
         - name: postgredb
           persistentVolumeClaim:

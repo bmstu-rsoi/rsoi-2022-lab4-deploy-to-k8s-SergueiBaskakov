@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: pgadmin
+  labels:
+    app: pgadmin
+spec:
+  ports:
+    - port: 80
+  selector:
+    app: pgadmin
+    tier: frontend
+  type: LoadBalancer

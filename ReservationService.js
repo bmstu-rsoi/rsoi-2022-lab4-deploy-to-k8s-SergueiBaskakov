@@ -11,7 +11,7 @@ const app = express();
 
 var client = new Client({
   user: 'program',
-  host: 'postgres',
+  host: 'postgres.csiefghu5ckw.us-west-2.rds.amazonaws.com',//'postgres',
   database: 'reservations',
   password: 'test',
   port: 5432,
@@ -22,7 +22,7 @@ client.connect();
 function renewClient() {
   client = new Client({
     user: 'program',
-    host: 'postgres',
+    host: 'postgres.csiefghu5ckw.us-west-2.rds.amazonaws.com',//'postgres',
     database: 'reservations',
     password: 'test',
     port: 5432,

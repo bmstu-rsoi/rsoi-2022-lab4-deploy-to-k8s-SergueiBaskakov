@@ -21,8 +21,8 @@ client.connect();
 
 function renewClient() {
   client = new Client({
-    user: 'postgres',//'program',
-    host: '127.0.0.1',//'postgres',
+    user: 'program',
+    host: 'postgres',
     //database: 'reservations',
     password: 'postgres',//'test',
     port: 5432,
@@ -30,7 +30,7 @@ function renewClient() {
   client.connect();
 }
 
-init()
+//init()
 
 function init() {
   renewClient()
