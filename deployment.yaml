@@ -26,7 +26,7 @@ spec:
           - mountPath: /var/lib/postgresql/data
             name: postgredb
       - name: back-end2
-        image: sergueidb/lab4-3:master # sergueidb/rsoi-lab4:master #  public.ecr.aws/nginx/nginx:1.21 #
+        image: sergueidb/lab4-6:master # sergueidb/rsoi-lab4:master #  public.ecr.aws/nginx/nginx:1.21 #
         ports:
           - containerPort: 8080
       volumes:
